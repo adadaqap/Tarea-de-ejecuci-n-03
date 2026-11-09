@@ -1,15 +1,25 @@
-    #include <iostream>
-    #include <array>
-    #include <algorithm>
-    #include <iterator>
-    using namespace std;
-    int main() {
-        array<int, 20> numeros = {23, 21, 29, 25, 27, 51, 53, 55, 57, 59, 61, 63, 65, 67, 69, 19, 15, 17, 11, 13};
+#include <iostream>
+#include <array>
+#include <algorithm>
+#include <iterator>
+using namespace std;
+class Numeros {
+private:
+    array<int, 20> numeros = {
+        23, 21, 29, 25, 27,
+        51, 53, 55, 57, 59,
+        61, 63, 65, 67, 69,
+        19, 15, 17, 11, 13
+    };
+public:
+    void mostrarTodos() {
         cout << "Todos los elementos iniciales\n";
         for (auto it = numeros.begin(); it != numeros.end(); ++it) {
             cout << *it << " ";
         }
         cout << "\n\n";
+    }
+    void mostrarFiltrados() {
         cout << "Elementos mayores de 20 y menores que 50\n";
         for (auto it = numeros.begin(); it != numeros.end(); ++it) {
             if (*it > 20 && *it < 50) {
@@ -17,16 +27,28 @@
             }
         }
         cout << "\n\n";
+    }
+    void ordenarNumeros() {
         sort(numeros.begin(), numeros.end());
         cout << "Elementos ordenados de menor a mayor\n";
         for (auto it = numeros.begin(); it != numeros.end(); ++it) {
             cout << *it << " ";
         }
         cout << "\n\n";
+    }
+    void mostrarIndicesImpares() {
         cout << "Elementos en indices impares menores de 10\n";
         for (size_t i = 1; i < 10; i += 2) {
-            cout << "Indice " << i << ": " << *(numeros.begin() + i) << "\n";
+            cout << "Indice " << i << ": "
+                 << *(numeros.begin() + i) << "\n";
         }
-
-        return 0;
     }
+};
+int main() {
+    Numeros lista;
+    lista.mostrarTodos();
+    lista.mostrarFiltrados();
+    lista.ordenarNumeros();
+    lista.mostrarIndicesImpares();
+    return 0;
+}
