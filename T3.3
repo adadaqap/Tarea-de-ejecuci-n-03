@@ -1,0 +1,68 @@
+#include <iostream>
+#include <array>
+#include <string>
+#include <fstream>
+#include <iterator>
+using namespace std;
+class Estudiante {
+private:
+    string nombre;
+    int anio_nacimiento;
+    double gpa;
+public:
+    Estudiante() {
+        nombre = "";
+        anio_nacimiento = 0;
+        gpa = 0.0;
+    }
+    void ingresarDatos(string nom, int anio, double promedio) {
+        nombre = nom;
+        anio_nacimiento = anio;
+        gpa = promedio;
+    }
+    void leerDatos() {
+        cin >> nombre >> anio_nacimiento >> gpa;
+    }
+    void mostrarDatos(int anio_actual) {
+        int edad = anio_actual - anio_nacimiento;
+        string estado_beca = (gpa >= 3.5)
+                             ? "SI califica"
+                             : "NO califica";
+        cout << "Nombre: " << nombre
+             << " | Nacimiento: " << anio_nacimiento
+             << " | Edad: " << edad << " anios"
+             << " | GPA: " << gpa
+             << " | Beca: " << estado_beca << "\n";
+    }
+    void leerArchivo(ifstream &archivo) {
+        archivo >> nombre >> anio_nacimiento >> gpa;
+    }
+};
+int main() {
+    array<Estudiante, 10> estudiantes;
+    estudiantes[0].ingresarDatos("Juan", 2000, 3.4);
+    estudiantes[1].ingresarDatos("Maria", 2005, 2.8);
+    cout << "Insercion del 3er y 4to estudiante\n";
+    cout << "Ingrese datos del 3er estudiante (Nombre Anio GPA): ";
+    estudiantes[2].leerDatos();
+    cout << "Ingrese datos del 4to estudiante (Nombre Anio GPA): ";
+    estudiantes[3].leerDatos();
+    estudiantes[4].ingresarDatos("Gaby", 2002, 3.8);
+    estudiantes[5].ingresarDatos("Patty", 2004, 3.0);
+    ifstream archivo("datos.txt");
+    if (archivo.is_open()) {
+        for (int i = 6; i < 10; ++i) {
+            estudiantes[i].leerArchivo(archivo);
+        }
+        archivo.close();
+    } else {
+        cout << "Aviso: No se pudo abrir datos.txt\n";
+    }
+    cout << "\nLISTA GENERAL DE ESTUDIANTES\n";
+    int anio_actual = 2026;
+    for (auto it = estudiantes.begin();
+         it != estudiantes.end(); ++it) {
+        it->mostrarDatos(anio_actual);
+    }
+    return 0;
+}
