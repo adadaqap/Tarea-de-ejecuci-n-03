@@ -3,26 +3,45 @@
 #include <algorithm>
 #include <string>
 using namespace std;
-int main() {
+class Pais {
+private:
     array<string, 12> paises = {
         "Argentina", "Bolivia", "Brasil", "Chile", "Colombia",
-        "Ecuador", "Paraguay", "Peru", "Uruguay", "Venezuela"
+        "Ecuador", "Paraguay", "Peru", "Uruguay", "Venezuela",
+        "", ""
     };
-    paises.at(10) = "Guyana";
-    paises[11] = "Suriname";
-    cout << "Paises que inician con C o P\n";
-    for (auto it = paises.begin(); it != paises.end(); ++it) {
-        if (!it->empty() && ((*it)[0] == 'C' || (*it)[0] == 'P')) {
+public:
+    void insertarPaises() {
+        paises.at(10) = "Guyana";
+        paises[11] = "Suriname";
+    }
+    void mostrarPorInicial() {
+        cout << "Paises que inician con C o P\n";
+        for (auto it = paises.begin(); it != paises.end(); ++it) {
+            if (!it->empty() &&
+                ((*it)[0] == 'C' || (*it)[0] == 'P')) {
+                cout << *it << "\n";
+            }
+        }
+    }
+    void mostrarExtremos() {
+        cout << "\nPrimer y ultimo elemento\n";
+        cout << "Primer pais: " << paises.front() << "\n";
+        cout << "Ultimo pais: " << paises.back() << "\n\n";
+    }
+    void ordenarPaises() {
+        sort(paises.begin(), paises.end());
+        cout << "Paises ordenados alfabeticamente:\n";
+        for (auto it = paises.begin(); it != paises.end(); ++it) {
             cout << *it << "\n";
         }
     }
-    cout << "\n";
-    cout << "Primer y ultimo elemento\n";
-    cout << "Primer pais: " << paises.front() << "\n";
-    cout << "Ultimo pais: " << paises.back() << "\n\n";
-    sort(paises.begin(), paises.end());
-    for (auto it = paises.begin(); it != paises.end(); ++it) {
-        cout << *it << "\n";
-    }
+};
+int main() {
+    Pais lista;
+    lista.insertarPaises();
+    lista.mostrarPorInicial();
+    lista.mostrarExtremos();
+    lista.ordenarPaises();
     return 0;
 }
